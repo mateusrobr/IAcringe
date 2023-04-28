@@ -4,6 +4,7 @@ ambiente = [["sujo", "sujo", "limpo"],
 
 
 lista_movimentos = []
+lista_Percepcao = []
 def percorrer_e_pegar_sujos(matriz, startx, starty):
     coluna = 0
     linha = 0
@@ -40,13 +41,13 @@ def get_posicao_aspirador(matriz):
     
 def trocar_Posicao(matriz, coordenada ,lista_sujos):
     global lista_movimentos
+    global lista_Percepcao
     flag_limpou = False
+    lista_Percepcao.append("Quadrado Limpo")
     if(matriz[coordenada[0] ][coordenada[1] ] == "sujo"):
-        #print(lista_sujos)
-        #print(coordenada)
         lista_sujos.pop(lista_sujos.index(coordenada))
-        #print("Sujeira limpada")
         flag_limpou = True
+        lista_Percepcao.append("Quadrado Sujo")
 
     posicao_aspirador = get_posicao_aspirador(matriz)
     matriz[coordenada[0] ][coordenada[1] ] = "aspirador"
@@ -118,4 +119,6 @@ print("\n{:^15} | {:^15} | {:^15}".format("Sequência", "Percepção", "Ação")
 print("-"*60)
 
 for i in range(len(lista_movimentos)):
-    print("{:^15} | {:^15} | {:^15}".format(i + 1, "", lista_movimentos[i]))
+    
+    print("{:^15} | {:^15} | {:^15}".format(i + 1, lista_Percepcao[i], lista_movimentos[i]))
+    
