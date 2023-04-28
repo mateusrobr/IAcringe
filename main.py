@@ -97,6 +97,7 @@ while len(lista_sujos) > 0:
             lista_movimentos.append("Move-se para baixo")
         elif(get_posicao_aspirador(ambiente)[0][1] > lista_sujos[0][1]):
             flag_limpou = trocar_Posicao(ambiente,[get_posicao_aspirador(ambiente)[0][0], get_posicao_aspirador(ambiente)[0][1] - 1], lista_sujos)
+            print("Move-se para esquerda")
             lista_movimentos.append("Move-se para esquerda") 
         elif get_posicao_aspirador(ambiente)[0][1] < lista_sujos[0][1]:
             flag_limpou = trocar_Posicao(ambiente,[get_posicao_aspirador(ambiente)[0][0], get_posicao_aspirador(ambiente)[0][1] + 1], lista_sujos)
@@ -120,5 +121,6 @@ print("-"*60)
 
 for i in range(len(lista_movimentos)):
     
+    print("{:^15} | {:^15} | {:^15}".format(i + 1, lista_Percepcao[i], lista_movimentos[i]))
     print("{:^15} | {:^15} | {:^15}".format(i + 1, lista_Percepcao[i], lista_movimentos[i]))
     
