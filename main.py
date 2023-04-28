@@ -3,7 +3,8 @@ ambiente = [["sujo", "sujo", "limpo"],
             ["sujo", "limpo", "sujo"]]
 
 
-
+lista_movimentos = []
+lista_Percepcao = []
 def percorrer_e_pegar_sujos(matriz, startx, starty):
     coluna = 0
     linha = 0
@@ -39,12 +40,14 @@ def get_posicao_aspirador(matriz):
     return lista_aspirador
     
 def trocar_Posicao(matriz, coordenada ,lista_sujos):
-    
+    global lista_movimentos
+    global lista_Percepcao
+    flag_limpou = False
+    lista_Percepcao.append("Quadrado Limpo")
     if(matriz[coordenada[0] ][coordenada[1] ] == "sujo"):
-        #print(lista_sujos)
-        #print(coordenada)
         lista_sujos.pop(lista_sujos.index(coordenada))
-        #print("Sujeira limpada")
+        flag_limpou = True
+        lista_Percepcao.append("Quadrado Sujo")
 
     posicao_aspirador = get_posicao_aspirador(matriz)
     matriz[coordenada[0] ][coordenada[1] ] = "aspirador"
@@ -54,6 +57,7 @@ def trocar_Posicao(matriz, coordenada ,lista_sujos):
     print("Estado atual do ambiente")
     for i in matriz:
         print(i)
+    return flag_limpou
 
 
 
@@ -69,40 +73,46 @@ def isSujo(matriz):
 
 
 lista_sujos = percorrer_e_pegar_sujos(ambiente,1,1)
+flag_limpou = False
 #print(lista_sujos)
-lista_movimentos = []
 print("Ambiente inicial")
 for row in ambiente:
     print(row)
 #print(ambiente)
 while len(lista_sujos) > 0:
     while get_posicao_aspirador(ambiente)[0][0] != lista_sujos[0][0] or get_posicao_aspirador(ambiente)[0][1] != lista_sujos[0][1]:
+        if(flag_limpou):
+            print("Limpa o quadrado sujo")
+            lista_movimentos.append("Limpou quadrado sujo")
+            flag_limpou = False
         if(get_posicao_aspirador(ambiente)[0][0] > lista_sujos[0][0]):
 
-            trocar_Posicao(ambiente, [get_posicao_aspirador(ambiente)[0][0] - 1, get_posicao_aspirador(ambiente)[0][1]],lista_sujos)
+            flag_limpou = trocar_Posicao(ambiente, [get_posicao_aspirador(ambiente)[0][0] - 1, get_posicao_aspirador(ambiente)[0][1]],lista_sujos)
             print("Move-se para cima")
             lista_movimentos.append("Move-se para cima")
         elif get_posicao_aspirador(ambiente)[0][0] < lista_sujos[0][0]:
 
-            trocar_Posicao(ambiente, [get_posicao_aspirador(ambiente)[0][0] + 1 , get_posicao_aspirador(ambiente)[0][1]], lista_sujos)
+            flag_limpou = trocar_Posicao(ambiente, [get_posicao_aspirador(ambiente)[0][0] + 1 , get_posicao_aspirador(ambiente)[0][1]], lista_sujos)
             print("Move-se para baixo") 
             lista_movimentos.append("Move-se para baixo")
         elif(get_posicao_aspirador(ambiente)[0][1] > lista_sujos[0][1]):
-            trocar_Posicao(ambiente,[get_posicao_aspirador(ambiente)[0][0], get_posicao_aspirador(ambiente)[0][1] - 1], lista_sujos)
+            flag_limpou = trocar_Posicao(ambiente,[get_posicao_aspirador(ambiente)[0][0], get_posicao_aspirador(ambiente)[0][1] - 1], lista_sujos)
+            print("Move-se para esquerda")
             lista_movimentos.append("Move-se para esquerda") 
         elif get_posicao_aspirador(ambiente)[0][1] < lista_sujos[0][1]:
-            trocar_Posicao(ambiente,[get_posicao_aspirador(ambiente)[0][0], get_posicao_aspirador(ambiente)[0][1] + 1], lista_sujos)
+            flag_limpou = trocar_Posicao(ambiente,[get_posicao_aspirador(ambiente)[0][0], get_posicao_aspirador(ambiente)[0][1] + 1], lista_sujos)
             print("Move-se para direita") 
             lista_movimentos.append("Move-se para direita")
         
         if(len(lista_sujos) < 1):
+            if(flag_limpou):
+                print("Limpa o quadrado sujo")
+                lista_movimentos.append("Limpou quadrado sujo")
+                flag_limpou = False
             print("Posição do aspirador: ", get_posicao_aspirador(ambiente))
             break
     #print(ambiente)
     
-    #lista_sujos.remove(lista_sujos[0])
-    if(len(lista_sujos) == 0):
-        break
 
 #print(lista_movimentos)
 
@@ -110,4 +120,5 @@ print("\n{:^15} | {:^15} | {:^15}".format("Sequência", "Percepção", "Ação")
 print("-"*60)
 
 for i in range(len(lista_movimentos)):
-    print("{:^15} | {:^15} | {:^15}".format(i + 1, "", lista_movimentos[i]))
+    
+    print("{:^15} | {:^15} | {:^15}".format(i + 1, lista_Percepcao[i], lista_movimentos[i]))
