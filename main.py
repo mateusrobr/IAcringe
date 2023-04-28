@@ -122,3 +122,5 @@ print("-"*60)
 for i in range(len(lista_movimentos)):
     
     print("{:^15} | {:^15} | {:^15}".format(i + 1, lista_Percepcao[i], lista_movimentos[i]))
+    print("{:^15} | {:^15} | {:^15}".format(i + 1, lista_Percepcao[i], lista_movimentos[i]))
+    
