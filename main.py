@@ -113,6 +113,9 @@ while len(lista_sujos) > 0:
                 flag_limpou = False
             i = 0
             while i < 3:
+                print("-" * 40)
+                for row in ambiente:
+                    print(row)
                 print("Nao fez Nada") 
                 lista_movimentos.append("Nao fez Nada")
                 lista_Percepcao.append("Quadrados limpos")
@@ -122,9 +125,7 @@ while len(lista_sujos) > 0:
             break
     #print(ambiente)
     
-print(lista_Percepcao)
-print(lista_movimentos)
-#print(lista_movimentos)
+
 
 print("\n{:^15} | {:^15} | {:^15}".format("Sequência", "Percepção", "Ação"))
 print("-"*60)
