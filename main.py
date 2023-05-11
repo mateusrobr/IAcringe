@@ -1,3 +1,4 @@
+import random
 ambiente = [["sujo", "sujo", "limpo"],
             ["limpo", "aspirador", "sujo"],
             ["sujo", "limpo", "sujo"]]
@@ -22,6 +23,22 @@ def percorrer_e_pegar_sujos(matriz, startx, starty):
     
     return lista_sujos
 
+def percorrer_e_pegar_limpos(matriz):
+    coluna = 0
+    linha = 0
+    lista_limpos = []
+    for i  in ambiente:
+        for j in i:
+            if j == "limpo":
+                #print(j)
+                #print(linha,coluna)
+                lista_limpos.append([linha,coluna])
+            coluna += 1
+            
+        linha += 1
+        coluna = 0
+    
+    return lista_limpos
 def get_posicao_aspirador(matriz):
     coluna = 0
     linha = 0
@@ -71,11 +88,21 @@ def isSujo(matriz):
     
     return False
 
+def sujoAleatorio(matriz):
+    lista_limpos = percorrer_e_pegar_limpos(matriz)
+    coordenada_novo_sujo = random.randrange(len(lista_limpos))
+    return lista_limpos[coordenada_novo_sujo]
+def sujarCoordenadaAleatorioa( matriz):
+    global lista_sujos
+    coordenada_aleatoria = sujoAleatorio(matriz)
+    matriz[coordenada_aleatoria[0]][coordenada_aleatoria[1]] = "sujo"
+    lista_sujos.append(coordenada_aleatoria)
+
 
 lista_sujos = percorrer_e_pegar_sujos(ambiente,1,1)
 flag_limpou = False
 #print(lista_sujos)
-qnt_sujeira_inicial = len(lista_sujos)
+qnt_sujeira = len(lista_sujos)
 print("Ambiente inicial")
 for row in ambiente:
     print(row)
@@ -114,12 +141,18 @@ while len(lista_sujos) > 0:
                 flag_limpou = False
             i = 0
             while i < 3:
+                sujoAleatorio(ambiente)
                 print("-" * 40)
                 for row in ambiente:
                     print(row)
                 print("Nao fez Nada") 
                 lista_movimentos.append("Nao fez Nada")
                 lista_Percepcao.append("Quadrados limpos")
+                if(random.randint(1,10) < 3):
+                    sujarCoordenadaAleatorioa(ambiente)
+                    
+                    qnt_sujeira += 1
+                    break
                 i += 1
 
             print("Posição do aspirador: ", get_posicao_aspirador(ambiente))
@@ -137,4 +170,4 @@ for i in range(len(lista_movimentos)):
     print("{:^15} | {:^15} | {:^15}".format(i + 1, lista_Percepcao[i], lista_movimentos[i]))
     
 print("Desempenho sera decidido pela divisao do numero de passos pela quantidade de sujeira que estava no ambiente:\n")
-print("Quantidade total de sujeira: {}, quantidade de passos: {}, resultado do desempenho: {}".format(qnt_sujeira_inicial, len(lista_movimentos), len(lista_movimentos)/qnt_sujeira_inicial))
+print("Quantidade total de sujeira: {}, quantidade de passos: {}, resultado do desempenho: {}".format(qnt_sujeira, len(lista_movimentos), len(lista_movimentos)/qnt_sujeira))
