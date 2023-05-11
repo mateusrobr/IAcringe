@@ -133,7 +133,7 @@ while len(lista_sujos) > 0:
             flag_limpou = trocar_Posicao(ambiente,[get_posicao_aspirador(ambiente)[0][0], get_posicao_aspirador(ambiente)[0][1] + 1], lista_sujos)
             print("Move-se para direita") 
             lista_movimentos.append("Move-se para direita")
-        
+        print(len(lista_movimentos) )
         if(len(lista_sujos) < 1):
             if(flag_limpou):
                 print("Limpa o quadrado sujo")
@@ -150,13 +150,16 @@ while len(lista_sujos) > 0:
                 lista_Percepcao.append("Quadrados limpos")
                 if(random.randint(1,10) < 3):
                     sujarCoordenadaAleatorioa(ambiente)
-                    
                     qnt_sujeira += 1
+                    print("-" * 40)
+                    for row in ambiente:
+                        print(row)
+                    print("A sala sujou novamente!")
                     break
                 i += 1
-
-            print("Posição do aspirador: ", get_posicao_aspirador(ambiente))
-            break
+            if(len(lista_sujos) < 1):
+                print("Posição do aspirador: ", get_posicao_aspirador(ambiente))
+                break
     #print(ambiente)
     
 
