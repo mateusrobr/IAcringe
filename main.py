@@ -75,6 +75,7 @@ def isSujo(matriz):
 lista_sujos = percorrer_e_pegar_sujos(ambiente,1,1)
 flag_limpou = False
 #print(lista_sujos)
+qnt_sujeira_inicial = len(lista_sujos)
 print("Ambiente inicial")
 for row in ambiente:
     print(row)
@@ -135,3 +136,5 @@ for i in range(len(lista_movimentos)):
     
     print("{:^15} | {:^15} | {:^15}".format(i + 1, lista_Percepcao[i], lista_movimentos[i]))
     
+print("Desempenho sera decidido pela divisao do numero de passos pela quantidade de sujeira que estava no ambiente:\n")
+print("Quantidade total de sujeira: {}, quantidade de passos: {}, resultado do desempenho: {}".format(qnt_sujeira_inicial, len(lista_movimentos), len(lista_movimentos)/qnt_sujeira_inicial))
