@@ -85,6 +85,11 @@ while len(lista_sujos) > 0:
             print("Limpa o quadrado sujo")
             lista_movimentos.append("Limpou quadrado sujo")
             flag_limpou = False
+        
+        elif flag_limpou == False:
+            print("Não faz nada")
+            lista_movimentos.append("Não faz nada")
+
         if(get_posicao_aspirador(ambiente)[0][0] > lista_sujos[0][0]):
 
             flag_limpou = trocar_Posicao(ambiente, [get_posicao_aspirador(ambiente)[0][0] - 1, get_posicao_aspirador(ambiente)[0][1]],lista_sujos)
@@ -109,6 +114,11 @@ while len(lista_sujos) > 0:
                 print("Limpa o quadrado sujo")
                 lista_movimentos.append("Limpou quadrado sujo")
                 flag_limpou = False
+            
+            elif flag_limpou == False:
+                print("Não faz nada")
+                lista_movimentos.append("Não faz nada")
+
             print("Posição do aspirador: ", get_posicao_aspirador(ambiente))
             break
     #print(ambiente)
@@ -120,7 +130,5 @@ print("\n{:^15} | {:^15} | {:^15}".format("Sequência", "Percepção", "Ação")
 print("-"*60)
 
 for i in range(len(lista_movimentos)):
-    
-    print("{:^15} | {:^15} | {:^15}".format(i + 1, lista_Percepcao[i], lista_movimentos[i]))
     print("{:^15} | {:^15} | {:^15}".format(i + 1, lista_Percepcao[i], lista_movimentos[i]))
     
